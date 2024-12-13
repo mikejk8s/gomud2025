@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	controller "github.com/go-fuego/fuego/examples/userstore/controllers"
-	"github.com/go-fuego/fuego/examples/userstore/models"
+	controller "gomud2025/controllers"
+	models "gomud2025/models"
 )
 
 func TestInMemoryUsers(t *testing.T) {

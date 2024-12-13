@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-fuego/fuego/examples/userstore/lib"
+	"gomud2025/lib"
 )
 
 func TestGetAllUsers(t *testing.T) {

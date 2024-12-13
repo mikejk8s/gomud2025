@@ -2,8 +2,9 @@ package lib
 
 import (
 	"github.com/go-fuego/fuego"
-	controller "github.com/go-fuego/fuego/examples/userstore/controllers"
-	"github.com/go-fuego/fuego/examples/userstore/services"
+
+	controller "gomud2025/controllers"
+	services "gomud2025/services"
 )
 
 func NewMudServer(options ...func(*fuego.Server)) *fuego.Server {

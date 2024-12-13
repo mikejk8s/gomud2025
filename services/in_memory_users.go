@@ -6,8 +6,7 @@ import (
 	"log/slog"
 	"strings"
 
-	"github.com/go-fuego/fuego/examples/userstore/models"
-
+	models "gomud2025/models"
 	controller "gomud2025/controllers"
 )
 

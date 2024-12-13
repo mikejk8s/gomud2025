@@ -4,9 +4,10 @@ import (
 	"log/slog"
 
 	"github.com/go-fuego/fuego"
-	"github.com/go-fuego/fuego/examples/userstore/models"
 	"github.com/go-fuego/fuego/option"
 	"github.com/go-fuego/fuego/param"
+
+	models  "gomud2025/models"
 )
 
 // default pagination options
