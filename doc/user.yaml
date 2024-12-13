@@ -1,0 +1,77 @@
+openapi: '3.1.0'
+info:
+  version: '0.0.1'
+  title: 'User'
+  description: User schema
+
+paths:
+  /users/{userId}:
+    parameters:
+      - name: userId
+        description: The unique identifier of the user
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/UserId'
+    get:
+      summary: Read a user
+      responses:
+        '200':
+          description: The user corresponding to the provided `userId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: No user found for the provided `userId`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    UserId:
+      description: The unique identifier of a user
+      type: string
+    User:
+      type: object
+      required:
+        - id
+        - name
+        - type
+      properties:
+        id:
+          $ref: '#/components/schemas/UserId'
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - capsule
+            - probe
+            - satellite
+            - spaceplane
+            - station
+        description:
+          type: string
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          description: A human readable error message
+          type: string
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+security:
+  - ApiKey: []
