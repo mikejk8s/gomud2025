@@ -1,5 +1,5 @@
 services:
-  webdev:
+  gomud:
     image: cosmtrek/air
     # working_dir value has to be the same of mapped volume
     working_dir: /.

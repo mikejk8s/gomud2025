@@ -1,4 +1,4 @@
-module webdev
+module gomud
 
 go 1.23.4
 

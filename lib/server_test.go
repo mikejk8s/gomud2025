@@ -7,12 +7,11 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"gotest.tools/v3/golden"
-
 	"github.com/go-fuego/fuego"
 )
 
-func TestPetstoreOpenAPIGeneration(t *testing.T) {
-	server := NewPetStoreServer(
+func TestMudOpenAPIGeneration(t *testing.T) {
+	server := NewMudServer(
 		fuego.WithoutStartupMessages(),
 		fuego.WithOpenAPIConfig(fuego.OpenAPIConfig{
 			JsonFilePath:     "testdata/doc/openapi.json",

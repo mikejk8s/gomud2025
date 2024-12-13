@@ -2,17 +2,17 @@ package lib
 
 import (
 	"github.com/go-fuego/fuego"
-	controller "github.com/go-fuego/fuego/examples/petstore/controllers"
-	"github.com/go-fuego/fuego/examples/petstore/services"
+	controller "github.com/go-fuego/fuego/examples/userstore/controllers"
+	"github.com/go-fuego/fuego/examples/userstore/services"
 )
 
-func NewPetStoreServer(options ...func(*fuego.Server)) *fuego.Server {
+func NewMudServer(options ...func(*fuego.Server)) *fuego.Server {
 	s := fuego.NewServer(options...)
 
-	petsResources := controller.PetsResources{
-		PetsService: services.NewInMemoryPetsService(), // Dependency injection: we can pass a service here (for example a database service)
+	usersResources := controller.UsersResources{
+		UsersService: services.NewInMemoryUsersService(), // Dependency injection: we can pass a service here (for example a database service)
 	}
-	petsResources.Routes(s)
+	usersResources.Routes(s)
 
 	return s
 }

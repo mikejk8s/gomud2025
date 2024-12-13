@@ -17,23 +17,23 @@ Our goal is to write all API as documentation which is then generated using OAS2
 
 To generate a new Ruby client from a valid api.yaml example
 
-The localhost path is http://localhost:9999/swagger/petstore.yaml (openapi.json, etc in /doc/)
+The localhost path is http://localhost:9999/swagger/userstore.yaml (openapi.json, etc in /doc/)
 
-1. openapi-generator-cli generate -i petstore.yaml -g ruby
-    *  https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/3_0/petstore.yaml
+1. openapi-generator-cli generate -i userstore.yaml -g ruby
+    *  https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/3_0/userstore.yaml
 
 2. Via docker
     * 
    ``` bash
    docker run --rm \
     -v ${PWD}:/local openapitools/openapi-generator-cli generate \
-    -i /local/petstore.yaml \
+    -i /local/userstore.yaml \
     -g go \
     -o /local/out/go 
   
 3. A go example
     * openapi-generator-cli generate -g go --additional-properties=prependFormOrBodyParameters=true \
-    -o out -i petstore.yaml
+    -o out -i userstore.yaml
 
 4. npx example
     * npx @openapitools/openapi-generator-cli generate -i doc/user.yaml -g go -o /tmp/test/ 

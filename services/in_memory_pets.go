@@ -6,26 +6,27 @@ import (
 	"log/slog"
 	"strings"
 
-	controller "github.com/go-fuego/fuego/examples/petstore/controllers"
-	"github.com/go-fuego/fuego/examples/petstore/models"
+	"github.com/go-fuego/fuego/examples/userstore/models"
+
+	controller "gomud2025/controllers"
 )
 
-func NewInMemoryPetsService() *InMemoryPetsService {
-	return &InMemoryPetsService{
-		Pets: []models.Pets{},
-		Incr: new(int),
+func NewInMemoryUsersService() *InMemoryUsersService {
+	return &InMemoryUsersService{
+		Users: []models.Users{},
+		Incr:  new(int),
 	}
 }
 
-type InMemoryPetsService struct {
-	Pets []models.Pets
-	Incr *int
+type InMemoryUsersService struct {
+	Users []models.Users
+	Incr  *int
 }
 
-// FilterPets implements controller.PetsService.
-func (petService *InMemoryPetsService) FilterPets(filter controller.PetsFilter) ([]models.Pets, error) {
-	pets := []models.Pets{}
-	for _, p := range petService.Pets {
+// FilterUsers implements controller.UsersService.
+func (userService *InMemoryUsersService) FilterUsers(filter controller.UsersFilter) ([]models.Users, error) {
+	users := []models.Users{}
+	for _, p := range userService.Users {
 		if filter.Name != "" && !strings.Contains(p.Name, filter.Name) {
 			continue
 		}
@@ -33,79 +34,79 @@ func (petService *InMemoryPetsService) FilterPets(filter controller.PetsFilter) 
 			continue
 		}
 
-		pets = append(pets, p)
+		users = append(users, p)
 	}
-	return pets, nil
+	return users, nil
 }
 
-// GetPetByName implements controller.PetsService.
-func (petService *InMemoryPetsService) GetPetByName(name string) (models.Pets, error) {
-	for _, p := range petService.Pets {
+// GetUserByName implements controller.UsersService.
+func (userService *InMemoryUsersService) GetUserByName(name string) (models.Users, error) {
+	for _, p := range userService.Users {
 		if p.Name == name {
 			return p, nil
 		}
 	}
-	return models.Pets{}, errors.New("pet not found")
+	return models.Users{}, errors.New("user not found")
 }
 
-// CreatePets implements controller.PetsService.
-func (petService *InMemoryPetsService) CreatePets(c models.PetsCreate) (models.Pets, error) {
-	*petService.Incr++
-	newPet := models.Pets{
-		ID:   fmt.Sprintf("pet-%d", *petService.Incr),
+// CreateUsers implements controller.UsersService.
+func (userService *InMemoryUsersService) CreateUsers(c models.UsersCreate) (models.Users, error) {
+	*userService.Incr++
+	newUser := models.Users{
+		ID:   fmt.Sprintf("user-%d", *userService.Incr),
 		Name: c.Name,
 		Age:  c.Age,
 	}
-	petService.Pets = append(petService.Pets, newPet)
-	slog.Info("Created pet", "id", newPet.ID)
+	userService.Users = append(userService.Users, newUser)
+	slog.Info("Created user", "id", newUser.ID)
 
-	return newPet, nil
+	return newUser, nil
 }
 
-// DeletePets implements controller.PetsService.
-func (petService *InMemoryPetsService) DeletePets(id string) (any, error) {
-	for i, p := range petService.Pets {
+// DeleteUsers implements controller.UsersService.
+func (userService *InMemoryUsersService) DeleteUsers(id string) (any, error) {
+	for i, p := range userService.Users {
 		if p.ID == id {
-			petService.Pets = append(petService.Pets[:i], petService.Pets[i+1:]...)
+			userService.Users = append(userService.Users[:i], userService.Users[i+1:]...)
 			return nil, nil
 		}
 	}
-	return nil, errors.New("pet not found")
+	return nil, errors.New("user not found")
 }
 
-// GetAllPets implements controller.PetsService.
-func (petService *InMemoryPetsService) GetAllPets() ([]models.Pets, error) {
-	return petService.Pets, nil
+// GetAllUsers implements controller.UsersService.
+func (userService *InMemoryUsersService) GetAllUsers() ([]models.Users, error) {
+	return userService.Users, nil
 }
 
-// GetAllPetsByAge implements controller.PetsService.
-func (petService *InMemoryPetsService) GetAllPetsByAge() ([][]models.Pets, error) {
+// GetAllUsersByAge implements controller.UsersService.
+func (userService *InMemoryUsersService) GetAllUsersByAge() ([][]models.Users, error) {
 	maxAge := 0
-	for _, p := range petService.Pets {
+	for _, p := range userService.Users {
 		if maxAge < p.Age {
 			maxAge = p.Age
 		}
 	}
-	pets := make([][]models.Pets, maxAge+1)
-	for _, p := range petService.Pets {
-		pets[p.Age] = append(pets[p.Age], p)
+	users := make([][]models.Users, maxAge+1)
+	for _, p := range userService.Users {
+		users[p.Age] = append(users[p.Age], p)
 	}
-	return pets, nil
+	return users, nil
 }
 
-// GetPets implements controller.PetsService.
-func (petService *InMemoryPetsService) GetPets(id string) (models.Pets, error) {
-	for _, p := range petService.Pets {
+// GetUsers implements controller.UsersService.
+func (userService *InMemoryUsersService) GetUsers(id string) (models.Users, error) {
+	for _, p := range userService.Users {
 		if p.ID == id {
 			return p, nil
 		}
 	}
-	return models.Pets{}, errors.New("pet not found")
+	return models.Users{}, errors.New("user not found")
 }
 
-// UpdatePets implements controller.PetsService.
-func (petService *InMemoryPetsService) UpdatePets(id string, input models.PetsUpdate) (models.Pets, error) {
-	for i, p := range petService.Pets {
+// UpdateUsers implements controller.UsersService.
+func (userService *InMemoryUsersService) UpdateUsers(id string, input models.UsersUpdate) (models.Users, error) {
+	for i, p := range userService.Users {
 		if p.ID == id {
 			if input.Name != "" {
 				p.Name = input.Name
@@ -113,11 +114,11 @@ func (petService *InMemoryPetsService) UpdatePets(id string, input models.PetsUp
 			if input.Age != 0 {
 				p.Age = input.Age
 			}
-			petService.Pets[i] = p
+			userService.Users[i] = p
 			return p, nil
 		}
 	}
-	return models.Pets{}, errors.New("pet not found")
+	return models.Users{}, errors.New("user not found")
 }
 
-var _ controller.PetsService = &InMemoryPetsService{}
+var _ controller.UsersService = &InMemoryUsersService{}

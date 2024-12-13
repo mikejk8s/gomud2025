@@ -1,9 +1,9 @@
 package main
 
-import "github.com/go-fuego/fuego/examples/petstore/lib"
+import "gomud2025/lib"
 
 func main() {
-	err := lib.NewPetStoreServer().Run()
+	err := lib.NewMudServer().Run()
 	if err != nil {
 		panic(err)
 	}
